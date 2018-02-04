@@ -1,0 +1,14 @@
+body{
+    text-align:center;
+}
+
+#container{
+    position: relative;
+    top:20vh;
+    left:25vw;
+    border:2px dashed;
+    height:50vh;
+    width:50vw;
+    text-align: center;
+    padding:10px;
+}
