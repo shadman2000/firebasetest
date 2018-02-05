@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.css" />
+        <link rel="stylesheet" href="./css/logedin.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script type="text/javascript" src="./js/materialize.js"></script>
+        <!--Firebase keys and scripts-->
+        
+    </head>
+    
+    <body>
+        <div class="container" id="pic">
+            <h5>Upload a file to the database</h5>
+            <progress id="progress" value="0" max="100"></progress>
+            <input type ="file" value="upload" id="files">
+            <p style="color:green;" class="hide" id="uploaded">File uploaded</p>
+        </div>
+        <div class="container" id="picview">
+            
+        </div>
+    </body>
+    <script src="https://www.gstatic.com/firebasejs/4.9.1/firebase.js"></script>
+    <script type="text/javascript" src="./js/logedin.js"></script>
+</html>
