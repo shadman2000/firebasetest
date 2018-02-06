@@ -5,6 +5,9 @@
     /*global firebase*/
     /*global promise*/
     /*global name*/
+    /*global keys*/
+    /*global datas*/
+    /*global i*/
     var config = {
         apiKey: "AIzaSyBqb86TuRh3E6FJ5kiz_wpfVtw02bXYXEE",
         authDomain: "fir-test-a6a28.firebaseapp.com",
@@ -22,31 +25,52 @@
     const picview = document.getElementById("picview");
     
     uploader.addEventListener('change' , e => {
+        var perc = 0;
         var ref = firebase.database().ref("storageUrls");
         var file = e.target.files[0];
-        var storageRef = firebase.storage().ref('testFolder/' + file.name);
+        var storageRef = firebase.storage().ref().child('testFolder/' + file.name);
         var task = storageRef.put(file);
-        
-        console.log(firebase.storage().ref('testFolder/').fullPath);
-        
         task.on('state_changed' , 
         snap => {
-            var perc = (snap.bytesTransferred / snap.totalBytes)*100;    
+            perc = (snap.bytesTransferred / snap.totalBytes)*100;    
             progress.value = perc;
+        }, err =>{
+            console.log(err);
+        }, done =>{
+            console.log("image is uploaded");
             if(perc == 100){
                 uploaded.classList.remove('hide');
-                storageRef.getDownloadURL().then(function(url){
-                    ref.push(url);
+                    storageRef.getDownloadURL().then(function(url){
+                        ref.push(url);
                 })
             }
         })
     });
     
-    var ref = firebase.database().ref("storageUrls");
+    var ref = firebase.database().ref("storageUrls/");
     ref.on('value' , data => {
-        var datas = data.val();
-        var keys = Object.keys(datas);
-        console.log(keys);
+        
+        if(data.val() != null){
+            var toberemoved = document.querySelectorAll(".toberemoved");
+            for(var i = 0; i < toberemoved.length; i ++){
+                toberemoved[i].remove();
+            }
+            
+            var datas = data.val();
+            var keys = Object.keys(datas);
+            for(var i = 0; i < keys.length; i++){
+                var k = keys[i];
+                var urls = datas[k];
+                console.log(urls);
+                var img = document.createElement("IMG");
+                img.setAttribute("src", urls);
+                img.className = "toberemoved";
+                img.style.height = "25vh";
+                img.style.padding = "1vh";
+                img.style.border = "1px solid";
+                picview.append(img);
+            }
+        }
     }, error => {
         console.log(error);
     })

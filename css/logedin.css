@@ -9,3 +9,10 @@ body{
     border:2px dashed;
     padding:20px;
 }
+
+#picview{
+    text-align: center;
+    border:2px dashed;
+    height: 100%;
+    position: relative;
+}
